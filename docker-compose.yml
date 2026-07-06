@@ -1,0 +1,53 @@
+name: college-platform
+
+# Phase 0: only the databases for the services we're about to build
+# (Identity, then Enrollment). We add each service's own container here
+# as we build it in later phases — not upfront. Grading, Notification,
+# Redis, RabbitMQ, and the Gateway are commented below as a preview of
+# where this file is headed; uncomment as each phase lands.
+
+services:
+  identity_db:
+    image: postgres:16-alpine
+    container_name: identity_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: identity_user
+      POSTGRES_PASSWORD: identity_pass
+      POSTGRES_DB: identity_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - identity_db_data:/var/lib/postgresql/data
+
+  enrollment_db:
+    image: postgres:16-alpine
+    container_name: enrollment_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: enrollment_user
+      POSTGRES_PASSWORD: enrollment_pass
+      POSTGRES_DB: enrollment_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - enrollment_db_data:/var/lib/postgresql/data
+
+  # --- Added in later phases, kept here as a roadmap preview ---
+  #
+  # identity_api:            # Phase 1 — FastAPI app, depends_on identity_db
+  # enrollment_api:          # Phase 2 — Django app, depends_on enrollment_db
+  #
+  # grading_db:               # Phase 5
+  # grading_api:               # Phase 5
+  #
+  # notification_api:         # Phase 4
+  # rabbitmq:                 # Phase 4 — event bus for Notification
+  #
+  # redis:                    # Phase 3 — refresh token blacklist, OTP storage
+  #
+  # gateway:                  # Phase 6 — Nginx reverse proxy, single entrypoint
+
+volumes:
+  identity_db_data:
+  enrollment_db_data:

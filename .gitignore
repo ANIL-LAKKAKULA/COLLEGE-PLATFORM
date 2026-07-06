@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Environment variables (never commit real secrets)
+.env
+.env.*
+!.env.example
+
+# Django
+services/*/db.sqlite3
+services/*/staticfiles/
+
+# Docker
+*.pid
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# JWT keys (generated locally per developer, never committed)
+services/identity/keys/*.pem
