@@ -52,4 +52,4 @@ services are planned, but not implemented yet.
 
 ## Status
 
-🚧 Phase 0 complete: repo scaffolding and planning.
+🚧 Phase 1 — designing the Identity Service's first API (`POST /auth/register`).
