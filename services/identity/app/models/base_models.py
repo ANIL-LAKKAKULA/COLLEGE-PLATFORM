@@ -7,9 +7,10 @@ from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, String, func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..core.database import Base
+from .relation_models import UserRole
 
 
 class User(Base):
@@ -32,6 +33,10 @@ class User(Base):
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
     last_login_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    user_roles: Mapped[list["UserRole"]] = relationship(
+        "UserRole", foreign_keys="UserRole.user_id"
+    )
 
 
 class Role(Base):
