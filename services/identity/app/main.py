@@ -1,3 +1,6 @@
+"""
+FastAPI application entrypoint.
+"""
 from fastapi import FastAPI
 
 from .core.exceptions import IdentityException, identity_exception_handler
