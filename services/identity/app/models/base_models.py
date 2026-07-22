@@ -32,7 +32,9 @@ class User(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
-    last_login_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    last_login_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
     user_roles: Mapped[list["UserRole"]] = relationship(
         "UserRole", foreign_keys="UserRole.user_id"
